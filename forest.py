@@ -8,7 +8,7 @@ class Frame:
 		self.totalWidth = len(max(content,key=len))+self.widthSpacesAndLines
 		self.totalHeight = len(content)+self.upDownLinesHeight
 		self.newLineForLinux='\n'
-
+		self.lastLine = self.totalHeight - 3
 	def getLine(self):
 		return self.borderCharacter*self.totalWidth
 
@@ -21,7 +21,7 @@ class Frame:
 	def getContent(self):
 		content = str()
 		for line in range(self.totalHeight-self.upDownLinesHeight):
-			if line == self.totalHeight-3:
+			if line == self.lastLine:
 				content+=self.setContentLine(line)
 			else:
 				content+=self.setContentLine(line)+self.newLineForLinux
