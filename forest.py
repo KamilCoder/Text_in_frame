@@ -3,23 +3,34 @@ class Frame:
 		self.content = content
 		self.borderCharacter = borderCharacter
 		self.space = space
-		self.width = len(max(content,key=len))+4
-		self.height = len(content)+2
+		self.upDownLinesHeight = 2
+		self.widthSpacesAndLines = 4
+		self.totalWidth = len(max(content,key=len))+self.widthSpacesAndLines
+		self.totalHeight = len(content)+self.upDownLinesHeight
+		self.newLineForLinux='\n'
 
-	def showLine(self):
-		return self.borderCharacter*self.width
+	def getLine(self):
+		return self.borderCharacter*self.totalWidth
 
-	def showContent(self):
+	def setContentLine(self, line):
+		return (self.borderCharacter + self.space + self.content[line]+(self.space*(self.totalWidth-3-(len(self.content[line]))))+self.borderCharacter)
+
+	def getContent(self):
 		content = str()
-		for h in range(self.height-2):
-			if h < self.height-3:
-				content+=(self.borderCharacter+self.space+self.content[h]+(self.space*(self.width-3-(len(self.content[h]))))+self.borderCharacter+'\n')
-			elif h < self.height-2:
-				content+=(self.borderCharacter+self.space+self.content[h]+(self.space*(self.width-3-(len(self.content[h]))))+self.borderCharacter)
+		for line in range(self.totalHeight-self.upDownLinesHeight):
+			if line == self.totalHeight-3:
+				content+=self.setContentLine(line)
+			else:
+				content+=self.setContentLine(line)+self.newLineForLinux
+
 		return content
 
 	def __str__(self):
-		return '\n'.join((self.showLine(),self.showContent(),self.showLine()))
+		return self.newLineForLinux.join((self.getLine(),
+										self.getContent(),
+										self.getLine()))
 
 	def __repr__(self):
-		return '\n'.join((self.showLine(),self.showContent(),self.showLine()))
+		return self.newLineForLinux.join((self.getLine(),
+										self.getContent(),
+										self.getLine()))
