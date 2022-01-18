@@ -12,8 +12,11 @@ class Frame:
 	def getLine(self):
 		return self.borderCharacter*self.totalWidth
 
+	def setSpaces(self, line):
+		return self.space*(self.totalWidth -3 -(len(self.content[line])))
+
 	def setContentLine(self, line):
-		return (self.borderCharacter + self.space + self.content[line]+(self.space*(self.totalWidth-3-(len(self.content[line]))))+self.borderCharacter)
+		return self.borderCharacter + self.space + self.content[line]+ self.setSpaces(line) +self.borderCharacter
 
 	def getContent(self):
 		content = str()
